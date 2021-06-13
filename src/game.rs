@@ -325,23 +325,23 @@ impl geng::State for Game {
     }
     fn handle_event(&mut self, event: geng::Event) {
         match event {
-            geng::Event::MouseDown {
-                position,
-                button: geng::MouseButton::Right,
-            } => {
-                let world_pos = self.camera.screen_to_world(
-                    self.framebuffer_size.map(|x| x as f32),
-                    position.map(|x| x as f32),
-                );
-                let tile_pos = world_pos.map(|x| x.floor());
-                self.tiles.push(tile_pos);
-                self.level.push([tile_pos, tile_pos + vec2(1.0, 0.0)]);
-                self.level.push([tile_pos, tile_pos + vec2(0.0, 1.0)]);
-                self.level
-                    .push([tile_pos + vec2(1.0, 1.0), tile_pos + vec2(1.0, 0.0)]);
-                self.level
-                    .push([tile_pos + vec2(1.0, 1.0), tile_pos + vec2(0.0, 1.0)]);
-            }
+            // geng::Event::MouseDown {
+            //     position,
+            //     button: geng::MouseButton::Right,
+            // } => {
+            //     let world_pos = self.camera.screen_to_world(
+            //         self.framebuffer_size.map(|x| x as f32),
+            //         position.map(|x| x as f32),
+            //     );
+            //     let tile_pos = world_pos.map(|x| x.floor());
+            //     self.tiles.push(tile_pos);
+            //     self.level.push([tile_pos, tile_pos + vec2(1.0, 0.0)]);
+            //     self.level.push([tile_pos, tile_pos + vec2(0.0, 1.0)]);
+            //     self.level
+            //         .push([tile_pos + vec2(1.0, 1.0), tile_pos + vec2(1.0, 0.0)]);
+            //     self.level
+            //         .push([tile_pos + vec2(1.0, 1.0), tile_pos + vec2(0.0, 1.0)]);
+            // }
             geng::Event::MouseDown {
                 button: geng::MouseButton::Left,
                 ..
@@ -364,22 +364,22 @@ impl geng::State for Game {
             }
             geng::Event::KeyDown { key } => match key {
                 geng::Key::W => {}
-                geng::Key::Z => {
-                    for _ in 0..4 {
-                        self.level.pop();
-                    }
-                    self.tiles.pop();
-                }
+                // geng::Key::Z => {
+                //     for _ in 0..4 {
+                //         self.level.pop();
+                //     }
+                //     self.tiles.pop();
+                // }
                 geng::Key::P => {
                     self.save = Some(self.player.clone());
                 }
-                geng::Key::S if self.geng.window().is_key_pressed(geng::Key::LCtrl) => {
-                    serde_json::to_writer(
-                        std::fs::File::create("level.json").unwrap(),
-                        &(&self.level, &self.tiles),
-                    )
-                    .unwrap();
-                }
+                // geng::Key::S if self.geng.window().is_key_pressed(geng::Key::LCtrl) => {
+                //     serde_json::to_writer(
+                //         std::fs::File::create("level.json").unwrap(),
+                //         &(&self.level, &self.tiles),
+                //     )
+                //     .unwrap();
+                // }
                 geng::Key::L => {
                     if let Some(save) = &self.save {
                         self.player = save.clone();
